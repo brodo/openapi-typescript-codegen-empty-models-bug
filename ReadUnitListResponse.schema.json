@@ -1,0 +1,77 @@
+{
+  "title": "unit List Response Body",
+  "type": "object",
+  "properties": {
+    "self": {
+      "title": "url to self",
+      "description": "The relative url of this resource",
+      "type": "string",
+      "format": "uri-reference",
+      "const": "/units"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "title": "Unit",
+        "description": "A SAP unit of measurement.",
+        "properties": {
+          "id": {
+            "title": "Unit id",
+            "type": "string",
+            "examples": [
+              "M2"
+            ]
+          },
+          "isoCode": {
+            "title": "The ISO code of the unit",
+            "type": "string",
+            "examples": [
+              "MTK"
+            ]
+          },
+          "nameEn": {
+            "title": "The english name of the unit",
+            "type": "string",
+            "examples": [
+              "Square meter ( m2 )"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "isoCode",
+          "nameEn"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    "success": {
+      "const": true
+    },
+    "errors": {
+      "const": []
+    },
+    "skip": {
+      "title": "Items Skipped",
+      "description": "How many items where skipped from the beginning of the list (offset).",
+      "type": "integer",
+      "default": 0
+    },
+    "limit": {
+      "title": "Limit",
+      "description": "How many items are contained in the list",
+      "type": "integer",
+      "default": 100
+    }
+  },
+  "required": [
+    "self",
+    "items",
+    "success",
+    "limit",
+    "skip",
+    "errors"
+  ],
+  "additionalProperties": false
+}

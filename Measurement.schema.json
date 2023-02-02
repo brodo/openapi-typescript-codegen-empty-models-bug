@@ -1,0 +1,37 @@
+{
+  "title": "Measurement",
+  "description": "A single measurement. Also known as telemetry value or data point.",
+  "properties": {
+    "value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "time": {
+      "title": "Occurred at Time",
+      "description": "The time when the measurement was taken",
+      "type": "string",
+      "format": "date-time"
+    },
+    "unit": {
+      "title": "The unit of the measurement",
+      "description": "The unit is the same as the one stored in the signal.",
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "value",
+    "time",
+    "unit"
+  ],
+  "additionalProperties": false
+}

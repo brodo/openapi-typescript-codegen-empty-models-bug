@@ -1,0 +1,83 @@
+{
+  "description": "Error response body",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "self": {
+      "type": "string",
+      "format": "uri-reference",
+      "examples": [
+        "/platforms/ZJOHdMRfIYNe375V75ltF",
+        "/alerts/"
+      ]
+    },
+    "statusCode": {
+      "type": "integer",
+      "examples": [
+        400,
+        401,
+        404,
+        415
+      ]
+    },
+    "success": {
+      "const": false
+    },
+    "errors": {
+      "type": "array",
+      "description": "Array of error objects",
+      "items": {
+        "description": "Describes a single error",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "examples": [
+              "VALIDATION_ERROR"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "arguments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "title": "Error argument name",
+                  "examples": [
+                    "user"
+                  ]
+                },
+                "value": {
+                  "type": "string",
+                  "title": "Error argument value",
+                  "examples": [
+                    "admin"
+                  ]
+                }
+              },
+              "required": [
+                "name",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "self",
+    "statusCode",
+    "success",
+    "errors"
+  ]
+}

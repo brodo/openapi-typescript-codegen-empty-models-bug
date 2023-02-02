@@ -1,0 +1,141 @@
+{
+  "title": "alert Creation Request Body",
+  "description": "An alert which was created on a source IoT platform",
+  "properties": {
+    "text": {
+      "title": "Alert Text",
+      "description": "Describes what happened, why the alert was raised etc.",
+      "type": "string",
+      "examples": [
+        "Temperature too high!"
+      ]
+    },
+    "state": {
+      "title": "Alert state",
+      "description": "'open' if the alert is still ongoing. 'close' if it has bean dealt with.",
+      "enum": [
+        "open",
+        "close"
+      ]
+    },
+    "severity": {
+      "title": "Alert severity",
+      "description": "How severe the alert is. Is the temperature a degree to high or off the charts.",
+      "enum": [
+        "CRT",
+        "MAJ",
+        "MIN",
+        "WRN"
+      ],
+      "type": "string"
+    },
+    "originalId": {
+      "title": "Original Alert Id",
+      "description": "The id of the alert given to it by the source IoT platform. As alert ids need to be globally unique and several connected platforms could use the same alert ids for different alerts, SFI generates it's own ids for alerts.",
+      "examples": [
+        "12345"
+      ],
+      "type": "string"
+    },
+    "platformConnection": {
+      "title": "url to self",
+      "description": "The relative url of this resource",
+      "examples": [
+        "/connections/Y3-f0alg2ohTp4aq"
+      ],
+      "type": "string",
+      "pattern": "^/connections/[a-zA-Z0-9-_]{16}$"
+    },
+    "time": {
+      "title": "Creation Time",
+      "description": "The time the alert was created on the source platform",
+      "examples": [
+        "2021-12-06T14:23:05+00:00"
+      ],
+      "format": "date-time",
+      "type": "string"
+    },
+    "measurements": {
+      "title": "Measurements",
+      "description": "May contain the measurements which lead to the alert being triggered.",
+      "type": "array",
+      "items": {
+        "title": "Measurement",
+        "description": "A single measurement. Also known as telemetry value or data point.",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "time": {
+            "title": "Occurred at Time",
+            "description": "The time when the measurement was taken",
+            "type": "string",
+            "format": "date-time"
+          },
+          "unit": {
+            "title": "The unit of the measurement",
+            "description": "The unit is the same as the one stored in the signal.",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "time",
+          "unit"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "signals": {
+      "title": "Signals",
+      "description": "May contain the signals which have created the measurements lead to the alert being triggered.",
+      "type": "array",
+      "items": {
+        "title": "url to self",
+        "description": "The relative url of this resource",
+        "examples": [
+          "/signals/Y3-f0alg2ohTp4aq"
+        ],
+        "type": "string",
+        "pattern": "^/signals/[a-zA-Z0-9-_]{16}$"
+      }
+    },
+    "originalSignals": {
+      "title": "Original Signals",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "analysisUrl": {
+      "title": "The url where the user can analyze the alert.",
+      "format": "uri",
+      "type": "string",
+      "examples": [
+        "https://mytenant.theplatform/analysis/alert/124"
+      ]
+    }
+  },
+  "required": [
+    "originalId",
+    "platformConnection",
+    "state",
+    "severity",
+    "time",
+    "measurements",
+    "originalSignals"
+  ],
+  "additionalProperties": false,
+  "type": "object"
+}

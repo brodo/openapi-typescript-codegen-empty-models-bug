@@ -1,0 +1,34 @@
+{
+  "title": "Unit",
+  "description": "A SAP unit of measurement.",
+  "properties": {
+    "id": {
+      "title": "Unit id",
+      "type": "string",
+      "examples": [
+        "M2"
+      ]
+    },
+    "isoCode": {
+      "title": "The ISO code of the unit",
+      "type": "string",
+      "examples": [
+        "MTK"
+      ]
+    },
+    "nameEn": {
+      "title": "The english name of the unit",
+      "type": "string",
+      "examples": [
+        "Square meter ( m2 )"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "isoCode",
+    "nameEn"
+  ],
+  "type": "object",
+  "additionalProperties": false
+}

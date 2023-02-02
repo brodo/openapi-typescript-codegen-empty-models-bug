@@ -1,0 +1,334 @@
+{
+  "title": "signal Response Body",
+  "description": "A signal produces multiple measurements. Each signal corresponds to a single time series.",
+  "properties": {
+    "id": {
+      "title": "Signal ID",
+      "description": "Unique id for an signal.",
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-_]{16}$",
+      "examples": [
+        "9K-wHdl0vOQIlDwTJAPxC"
+      ]
+    },
+    "name": {
+      "title": "Signal Name",
+      "type": "string",
+      "examples": [
+        "Temperature Sensor 1"
+      ]
+    },
+    "path": {
+      "title": "Path",
+      "description": "A path which points to a position inside a signal topology",
+      "type": "array",
+      "items": {
+        "title": "Path Element",
+        "description": "A part of a path. If the part is '/foo/bar' it's elements are 'foo' and 'bar'.",
+        "properties": {
+          "id": {
+            "title": "Path ID",
+            "description": "Unique id for an path.",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{16}$",
+            "examples": [
+              "9K-wHdl0vOQIlDwTJAPxC"
+            ]
+          },
+          "name": {
+            "title": "Path Element Name",
+            "type": "string"
+          },
+          "level": {
+            "title": "Path Level",
+            "type": "integer",
+            "minimum": 0,
+            "description": "If this path element's name where 'bar' and the path is /foo/bar then the level of the path element 'bar' is 1. "
+          }
+        },
+        "required": [
+          "level",
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "unit": {
+      "title": "Signal Unit",
+      "description": "The unit in which the measurements this signal creates are measured.",
+      "type": "string",
+      "examples": [
+        "m",
+        "cm",
+        "kg"
+      ]
+    },
+    "unitOverwrite": {
+      "title": "Signal Unit overwrite",
+      "description": "The unit which SFI connect uses to overwrite the signal from the source platform",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "m",
+        "cm",
+        "kg"
+      ]
+    },
+    "isSubscribed": {
+      "title": "Is Subscribed",
+      "description": "True, if SFI is subscribed to updates from this signal.",
+      "type": "boolean",
+      "default": false
+    },
+    "isOnline": {
+      "title": "Is Online",
+      "description": "True, if the sensor producing the signal is connected to the source IoT platform.",
+      "type": "boolean",
+      "default": false
+    },
+    "connection": {
+      "oneOf": [
+        {
+          "title": "url to self",
+          "description": "The relative url of this resource",
+          "examples": [
+            "/connections/Y3-f0alg2ohTp4aq"
+          ],
+          "type": "string",
+          "pattern": "^/connections/[a-zA-Z0-9-_]{16}$"
+        },
+        {
+          "title": "Connection",
+          "description": "A connection to an external IoT platform. May contain the credentials to access it",
+          "properties": {
+            "name": {
+              "title": "Connection Name",
+              "description": "The name of the connection. A good name might indicate the IoT Platform and the tenant on that platform.Needs to be unique",
+              "type": "string",
+              "examples": [
+                "My Azure IoT Hub Connection"
+              ]
+            },
+            "id": {
+              "title": "Connection ID",
+              "description": "Unique id for an connection.",
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9-_]{16}$",
+              "examples": [
+                "9K-wHdl0vOQIlDwTJAPxC"
+              ]
+            },
+            "platform": {
+              "title": "url to self",
+              "description": "The relative url of this resource",
+              "examples": [
+                "/platforms/Y3-f0alg2ohTp4aq"
+              ],
+              "type": "string",
+              "pattern": "^/platforms/[a-zA-Z0-9-_]{16}$"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "credentials": {
+              "oneOf": [
+                {
+                  "title": "Token Authentication Credentials",
+                  "properties": {
+                    "type": {
+                      "title": "Authentication Type",
+                      "const": "TOKEN"
+                    },
+                    "token": {
+                      "title": "API token",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "token"
+                  ],
+                  "additionalProperties": false,
+                  "type": "object"
+                },
+                {
+                  "title": "Basic Authentication credentials",
+                  "properties": {
+                    "type": {
+                      "title": "Authentication Type",
+                      "const": "BASIC"
+                    },
+                    "username": {
+                      "title": "User name",
+                      "type": "string",
+                      "examples": [
+                        "admin"
+                      ]
+                    },
+                    "password": {
+                      "title": "Password",
+                      "type": "string",
+                      "examples": [
+                        "hunter2"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "username",
+                    "password",
+                    "type"
+                  ],
+                  "additionalProperties": false,
+                  "type": "object"
+                }
+              ]
+            },
+            "severityMappings": {
+              "title": "Severity Mappings",
+              "type": "array",
+              "items": {
+                "title": "Severity Mapping",
+                "description": "Maps from a severity of an external IoT platform to a severity in SAP",
+                "properties": {
+                  "sapSeverity": {
+                    "title": "SAP Severity",
+                    "description": "The severity as it is named in the SAP system",
+                    "type": "string"
+                  },
+                  "platformSeverity": {
+                    "title": "Platform Severity",
+                    "description": "The severity as it is named in the source IoT platform",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "sapSeverity",
+                  "platformSeverity"
+                ],
+                "additionalProperties": false,
+                "type": "object"
+              }
+            },
+            "self": {
+              "title": "url to self",
+              "description": "The relative url of this resource",
+              "examples": [
+                "/connections/Y3-f0alg2ohTp4aq"
+              ],
+              "type": "string",
+              "pattern": "^/connections/[a-zA-Z0-9-_]{16}$"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "platform",
+            "self"
+          ],
+          "additionalProperties": false,
+          "type": "object"
+        }
+      ]
+    },
+    "originalId": {
+      "title": "Original Id",
+      "type": "string",
+      "examples": [
+        "b0d3e5ec-461a-46d3-a627-e36cb81bd6a3"
+      ]
+    },
+    "lastMeasurement": {
+      "oneOf": [
+        {
+          "title": "url to self",
+          "description": "The relative url of this resource",
+          "examples": [
+            "/measurements/Y3-f0alg2ohTp4aq"
+          ],
+          "type": "string",
+          "pattern": "^/measurements/[a-zA-Z0-9-_]{16}$"
+        },
+        {
+          "oneOf": [
+            {
+              "title": "Measurement",
+              "description": "A single measurement. Also known as telemetry value or data point.",
+              "properties": {
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    }
+                  ]
+                },
+                "time": {
+                  "title": "Occurred at Time",
+                  "description": "The time when the measurement was taken",
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "unit": {
+                  "title": "The unit of the measurement",
+                  "description": "The unit is the same as the one stored in the signal.",
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "required": [
+                "value",
+                "time",
+                "unit"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      ]
+    },
+    "self": {
+      "title": "url to self",
+      "description": "The relative url of this resource",
+      "examples": [
+        "/signals/Y3-f0alg2ohTp4aq"
+      ],
+      "type": "string",
+      "pattern": "^/signals/[a-zA-Z0-9-_]{16}$"
+    },
+    "success": {
+      "const": true
+    },
+    "errors": {
+      "const": []
+    }
+  },
+  "required": [
+    "id",
+    "path",
+    "name",
+    "unit",
+    "unitOverwrite",
+    "isSubscribed",
+    "isOnline",
+    "connection",
+    "originalId",
+    "lastMeasurement",
+    "self",
+    "success",
+    "errors"
+  ],
+  "additionalProperties": false,
+  "type": "object"
+}

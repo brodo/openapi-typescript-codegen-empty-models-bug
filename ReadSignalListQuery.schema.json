@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "expand": {
+      "description": "Which properties should be expanded. (can be several)",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "connection",
+          "lastMeasurement"
+        ]
+      }
+    },
+    "limit": {
+      "type": "integer",
+      "title": "The amount of list items to return",
+      "default": 100,
+      "examples": [
+        100
+      ]
+    },
+    "skip": {
+      "type": "integer",
+      "title": "How many items to skip from the beginning of the list",
+      "default": 0
+    }
+  },
+  "type": "object"
+}

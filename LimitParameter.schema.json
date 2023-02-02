@@ -1,0 +1,8 @@
+{
+  "type": "integer",
+  "title": "The amount of list items to return",
+  "default": 100,
+  "examples": [
+    100
+  ]
+}

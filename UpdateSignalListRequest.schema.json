@@ -1,0 +1,118 @@
+{
+  "title": "signal List Update Request Body",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "title": "signal Update Request Body",
+        "description": "A signal produces multiple measurements. Each signal corresponds to a single time series.",
+        "properties": {
+          "name": {
+            "title": "Signal Name",
+            "type": "string",
+            "examples": [
+              "Temperature Sensor 1"
+            ]
+          },
+          "path": {
+            "title": "Path",
+            "description": "A path which points to a position inside a signal topology",
+            "type": "array",
+            "items": {
+              "title": "Path Element",
+              "description": "A part of a path. If the part is '/foo/bar' it's elements are 'foo' and 'bar'.",
+              "properties": {
+                "id": {
+                  "title": "Path ID",
+                  "description": "Unique id for an path.",
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9-_]{16}$",
+                  "examples": [
+                    "9K-wHdl0vOQIlDwTJAPxC"
+                  ]
+                },
+                "name": {
+                  "title": "Path Element Name",
+                  "type": "string"
+                },
+                "level": {
+                  "title": "Path Level",
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "If this path element's name where 'bar' and the path is /foo/bar then the level of the path element 'bar' is 1. "
+                }
+              },
+              "required": [
+                "level",
+                "id",
+                "name"
+              ],
+              "type": "object",
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "unit": {
+            "title": "Signal Unit",
+            "description": "The unit in which the measurements this signal creates are measured.",
+            "type": "string",
+            "examples": [
+              "m",
+              "cm",
+              "kg"
+            ]
+          },
+          "unitOverwrite": {
+            "title": "Signal Unit overwrite",
+            "description": "The unit which SFI connect uses to overwrite the signal from the source platform",
+            "type": "string",
+            "default": "",
+            "examples": [
+              "m",
+              "cm",
+              "kg"
+            ]
+          },
+          "isSubscribed": {
+            "title": "Is Subscribed",
+            "description": "True, if SFI is subscribed to updates from this signal.",
+            "type": "boolean",
+            "default": false
+          },
+          "isOnline": {
+            "title": "Is Online",
+            "description": "True, if the sensor producing the signal is connected to the source IoT platform.",
+            "type": "boolean",
+            "default": false
+          },
+          "originalId": {
+            "title": "Original Id",
+            "type": "string",
+            "examples": [
+              "b0d3e5ec-461a-46d3-a627-e36cb81bd6a3"
+            ]
+          },
+          "self": {
+            "title": "url to self",
+            "description": "The relative url of this resource",
+            "examples": [
+              "/signals/Y3-f0alg2ohTp4aq"
+            ],
+            "type": "string",
+            "pattern": "^/signals/[a-zA-Z0-9-_]{16}$"
+          }
+        },
+        "required": [
+          "self"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "items"
+  ],
+  "additionalProperties": false,
+  "type": "object"
+}

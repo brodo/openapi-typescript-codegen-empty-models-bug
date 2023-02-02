@@ -1,0 +1,47 @@
+{
+  "title": "measurement Creation Request Body",
+  "description": "A single measurement. Also known as telemetry value or data point.",
+  "properties": {
+    "value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "time": {
+      "title": "Occurred at Time",
+      "description": "The time when the measurement was taken",
+      "type": "string",
+      "format": "date-time"
+    },
+    "unit": {
+      "title": "The unit of the measurement",
+      "description": "The unit is the same as the one stored in the signal.",
+      "type": "string"
+    },
+    "signal": {
+      "title": "url to self",
+      "description": "The relative url of this resource",
+      "examples": [
+        "/signals/Y3-f0alg2ohTp4aq"
+      ],
+      "type": "string",
+      "pattern": "^/signals/[a-zA-Z0-9-_]{16}$"
+    }
+  },
+  "type": "object",
+  "required": [
+    "value",
+    "time",
+    "unit",
+    "signal"
+  ],
+  "additionalProperties": false
+}

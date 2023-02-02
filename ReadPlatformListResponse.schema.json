@@ -1,0 +1,112 @@
+{
+  "title": "platform List Response Body",
+  "type": "object",
+  "properties": {
+    "self": {
+      "title": "url to self",
+      "description": "The relative url of this resource",
+      "type": "string",
+      "format": "uri-reference",
+      "const": "/platforms"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "title": "Platform",
+        "description": "Configuration data related to an IoT Platform like Azure IoT Hub or Cumulocity Cloud",
+        "properties": {
+          "id": {
+            "title": "Platform ID",
+            "description": "Unique id for an platform.",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]{16}$",
+            "examples": [
+              "9K-wHdl0vOQIlDwTJAPxC"
+            ]
+          },
+          "name": {
+            "title": "IoT Platform name",
+            "type": "string"
+          },
+          "defaultSeverityMappings": {
+            "title": "Default Severity Mappings",
+            "description": "Any connection to a platform of this type has these severity mappings if they are not overwritten on a per-connection basis.",
+            "type": "array",
+            "items": {
+              "title": "Severity Mapping",
+              "description": "Maps from a severity of an external IoT platform to a severity in SAP",
+              "properties": {
+                "sapSeverity": {
+                  "title": "SAP Severity",
+                  "description": "The severity as it is named in the SAP system",
+                  "type": "string"
+                },
+                "platformSeverity": {
+                  "title": "Platform Severity",
+                  "description": "The severity as it is named in the source IoT platform",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "sapSeverity",
+                "platformSeverity"
+              ],
+              "additionalProperties": false,
+              "type": "object"
+            }
+          },
+          "hasChangebleAlertSeverities": {
+            "title": "Has Changeable Alert Severities",
+            "description": "Is 'true' if the alert severities on the target platform can be changed.",
+            "type": "boolean"
+          },
+          "self": {
+            "title": "url to self",
+            "description": "The relative url of this resource",
+            "examples": [
+              "/platforms/Y3-f0alg2ohTp4aq"
+            ],
+            "type": "string",
+            "pattern": "^/platforms/[a-zA-Z0-9-_]{16}$"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "defaultSeverityMappings",
+          "hasChangebleAlertSeverities",
+          "self"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    "success": {
+      "const": true
+    },
+    "errors": {
+      "const": []
+    },
+    "skip": {
+      "title": "Items Skipped",
+      "description": "How many items where skipped from the beginning of the list (offset).",
+      "type": "integer",
+      "default": 0
+    },
+    "limit": {
+      "title": "Limit",
+      "description": "How many items are contained in the list",
+      "type": "integer",
+      "default": 100
+    }
+  },
+  "required": [
+    "self",
+    "items",
+    "success",
+    "limit",
+    "skip",
+    "errors"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,49 @@
+{
+  "title": "platform Creation Request Body",
+  "description": "Configuration data related to an IoT Platform like Azure IoT Hub or Cumulocity Cloud",
+  "properties": {
+    "name": {
+      "title": "IoT Platform name",
+      "type": "string"
+    },
+    "defaultSeverityMappings": {
+      "title": "Default Severity Mappings",
+      "description": "Any connection to a platform of this type has these severity mappings if they are not overwritten on a per-connection basis.",
+      "type": "array",
+      "items": {
+        "title": "Severity Mapping",
+        "description": "Maps from a severity of an external IoT platform to a severity in SAP",
+        "properties": {
+          "sapSeverity": {
+            "title": "SAP Severity",
+            "description": "The severity as it is named in the SAP system",
+            "type": "string"
+          },
+          "platformSeverity": {
+            "title": "Platform Severity",
+            "description": "The severity as it is named in the source IoT platform",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sapSeverity",
+          "platformSeverity"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      }
+    },
+    "hasChangebleAlertSeverities": {
+      "title": "Has Changeable Alert Severities",
+      "description": "Is 'true' if the alert severities on the target platform can be changed.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "name",
+    "defaultSeverityMappings",
+    "hasChangebleAlertSeverities"
+  ],
+  "type": "object",
+  "additionalProperties": false
+}

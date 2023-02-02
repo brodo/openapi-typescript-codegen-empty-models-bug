@@ -1,0 +1,5 @@
+{
+  "type": "integer",
+  "title": "How many items to skip from the beginning of the list",
+  "default": 0
+}

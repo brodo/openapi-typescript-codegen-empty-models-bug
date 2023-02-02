@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "const": []
+    },
+    "statusCode": {
+      "const": 200
+    },
+    "success": {
+      "const": true
+    }
+  },
+  "required": [
+    "errors",
+    "statusCode",
+    "success"
+  ],
+  "additionalProperties": false
+}

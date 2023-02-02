@@ -1,0 +1,32 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "items": {
+      "type": "array",
+      "title": "Deletion Path Array",
+      "items": {
+        "type": "string",
+        "format": "uri-reference",
+        "title": "Deletion Path",
+        "description": "path of the item that should be deleted",
+        "pattern": "^/signals/[a-zA-Z0-9-_]{16}$",
+        "examples": [
+          "signals/Y3-Y25CRA_t3L1lp",
+          "signals/Y3-Y25CaA_t3L1lp"
+        ]
+      }
+    }
+  },
+  "examples": [
+    {
+      "items": [
+        "/signals/Y3-Y25CRA_t3L1lp",
+        "/signals/Y3-Y25CRA_t3L1lp"
+      ]
+    }
+  ],
+  "required": [
+    "items"
+  ],
+  "type": "object"
+}
